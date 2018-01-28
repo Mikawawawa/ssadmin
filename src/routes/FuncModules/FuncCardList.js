@@ -9,7 +9,7 @@ import styles from './FuncCardList.less';
 const FormItem = Form.Item;
 
 @connect(state => ({
-  modulesCard: state.modulesCard,
+  modules: state.modules,
 }))
 export default class CardList extends PureComponent {
   state = {
@@ -19,7 +19,7 @@ export default class CardList extends PureComponent {
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'modulesCard/fetch',
+      type: 'modules/fetch',
       payload: {
         count: 8,
       },
@@ -40,7 +40,7 @@ export default class CardList extends PureComponent {
 
   handleAdd = () => {
     this.props.dispatch({
-      type: 'modulesCard/add',
+      type: 'modules/add',
       payload: {
         description: this.state.addInputValue,
       },
@@ -54,13 +54,13 @@ export default class CardList extends PureComponent {
 
   handleDelete = (id) => {
     this.props.dispatch({
-      type: 'modulesCard/delete',
+      type: 'modules/delete',
       payload: {
         moduleid: id,
       },
     });
     this.props.dispatch({
-      type: 'modulesCard/fetch',
+      type: 'modules/fetch',
       payload: {
         count: 8,
       },
@@ -69,7 +69,7 @@ export default class CardList extends PureComponent {
   }
 
   render() {
-    const { list: { list, loading } } = this.props;
+    const { modules: { list, loading } } = this.props;
     const { modalVisible, addInputValue } = this.state;
 
     const content = (
@@ -101,7 +101,7 @@ export default class CardList extends PureComponent {
             dataSource={['', ...list]}
             renderItem={item => (item ? (
               <List.Item key={item.id}>
-                <Card hoverable className={styles.card} title={<a href="#">{item.title}</a>} extra={[<Button onClick={() => this.handleDelete(item.id)} > 删除</Button>]}>
+                <Card hoverable className={styles.card} title={<a href="#">{item.title}</a>} extra={<Button onClick={() => this.handleDelete(item.id)} > 删除</Button>}>
                   <Card.Meta
                     avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
                     description={(

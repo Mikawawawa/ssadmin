@@ -1,7 +1,7 @@
 import { queryFakeList, deleteModule, insertModule } from '../services/api';
 
 export default {
-  namespace: 'modulesCard',
+  namespace: 'modules',
 
   state: {
     list: [],
