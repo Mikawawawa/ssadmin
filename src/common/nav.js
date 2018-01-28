@@ -89,8 +89,8 @@ export const getNavData = app => [
         children: [
           {
             name: '模块卡片',
-            path: 'modulesCard',
-            component: dynamicWrapper(app, ['modulesCard'], () =>
+            path: 'list',
+            component: dynamicWrapper(app, ['modules'], () =>
               import('../routes/FuncModules/FuncCardList')
             ),
           },
