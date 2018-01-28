@@ -1,7 +1,7 @@
-import { queryFakeList, deleteModule } from '../services/api';
+import { queryFakeList, deleteModule, insertModule } from '../services/api';
 
 export default {
-  namespace: 'moduleCard',
+  namespace: 'modulesCard',
 
   state: {
     list: [],
@@ -25,28 +25,25 @@ export default {
       });
     },
     *delete({ payload }, { put, call }) {
-      yield put({
-        type: 'changeLoading',
-        payload: true,
-      });
-      const response = yield call(deleteModule, payload);
-      yield put({
-        type: 'appendList',
-        payload: Array.isArray(response) ? response : [],
-      });
-      yield put({
-        type: 'changeLoading',
-        payload: false,
-      });
-    }
+      yield call(deleteModule, payload);
+    },
+    *add({ payload }, { call }) {
+      yield call(insertModule, payload);
+    },
   },
 
   reducers: {
     appendList(state, action) {
       return {
         ...state,
-        list: state.list.concat(action.payload),
+        list: action.payload,
       };
+    },
+    refreshList(state, action) {
+      return {
+        ...state,
+        list: state.list.concat(aciton.payload),
+      }
     },
     changeLoading(state, action) {
       return {
