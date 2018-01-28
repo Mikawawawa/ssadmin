@@ -1,4 +1,4 @@
-import { queryFakeList } from '../services/api';
+import { queryFakeList, deleteModule, insertModule } from '../services/api';
 
 export default {
   namespace: 'list',
@@ -24,14 +24,26 @@ export default {
         payload: false,
       });
     },
+    *delete({ payload }, { put, call }) {
+      yield call(deleteModule, payload);
+    },
+    *add({ payload }, { call }) {
+      yield call(insertModule, payload);
+    },
   },
 
   reducers: {
     appendList(state, action) {
       return {
         ...state,
-        list: state.list.concat(action.payload),
+        list: action.payload,
       };
+    },
+    refreshList(state, action) {
+      return {
+        ...state,
+        list: state.list.concat(aciton.payload),
+      }
     },
     changeLoading(state, action) {
       return {

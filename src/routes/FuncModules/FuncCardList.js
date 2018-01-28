@@ -9,7 +9,7 @@ import styles from './FuncCardList.less';
 const FormItem = Form.Item;
 
 @connect(state => ({
-  list: state.list,
+  modulesCard: state.modulesCard,
 }))
 export default class CardList extends PureComponent {
   state = {
@@ -19,7 +19,7 @@ export default class CardList extends PureComponent {
 
   componentDidMount() {
     this.props.dispatch({
-      type: 'list/fetch',
+      type: 'modulesCard/fetch',
       payload: {
         count: 8,
       },
@@ -54,13 +54,13 @@ export default class CardList extends PureComponent {
 
   handleDelete = (id) => {
     this.props.dispatch({
-      type: 'list/delete',
+      type: 'modulesCard/delete',
       payload: {
         moduleid: id,
       },
     });
     this.props.dispatch({
-      type: 'list/fetch',
+      type: 'modulesCard/fetch',
       payload: {
         count: 8,
       },
