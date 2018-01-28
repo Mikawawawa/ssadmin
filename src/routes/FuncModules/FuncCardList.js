@@ -40,7 +40,7 @@ export default class CardList extends PureComponent {
 
   handleAdd = () => {
     this.props.dispatch({
-      type: 'account/add',
+      type: 'modulesCard/add',
       payload: {
         description: this.state.addInputValue,
       },

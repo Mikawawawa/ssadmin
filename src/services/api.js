@@ -32,9 +32,7 @@ export async function updateShareImage() {
   return request('/back/systemActivity/updateShareImage');
 }
 
-export async function queryModule() {
-  return request('/back/systemModule/queryModule');
-}
+
 
 // -----------------------账户管理------------------------
 
@@ -248,6 +246,9 @@ export async function queryNotices() {
 }
 
 // ------------------模块管理-------------------
+export async function queryModule() {
+  return request('/back/systemModule/queryModule');
+}
 
 export async function deleteModule(params) {
   return request('/back/systemModule/delete', {
