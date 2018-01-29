@@ -1,5 +1,8 @@
 import mockjs from 'mockjs'
-import { getRule, postRule } from './mock/rule'
+import {
+  getRule,
+  postRule
+} from './mock/rule'
 import {
   getActivities,
   getNotice,
@@ -7,13 +10,36 @@ import {
   getFakeActivities,
   getFakeActivitiesList
 } from './mock/api'
-import { getFakeChartData } from './mock/chart'
-import { imgMap } from './mock/utils'
-import { getProfileBasicData } from './mock/profile'
-import { getProfileAdvancedData } from './mock/profile'
-import { getNotices } from './mock/notices'
-import { format, delay } from 'roadhog-api-doc'
-import { moduleDelete, moduleInsert } from './mock/module'
+import {
+  getFakeChartData
+} from './mock/chart'
+import {
+  imgMap
+} from './mock/utils'
+import {
+  getProfileBasicData
+} from './mock/profile'
+import {
+  getProfileAdvancedData
+} from './mock/profile'
+import {
+  getNotices
+} from './mock/notices'
+import {
+  format,
+  delay
+} from 'roadhog-api-doc'
+import {
+  moduleDelete,
+  moduleInsert
+} from './mock/module'
+import {
+  getFakeDevice,
+  deviceDelete,
+  deviceInsert,
+  allocateATD,
+  allocateDTM
+} from './mock/device'
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true'
 
@@ -30,15 +56,13 @@ const proxy = {
     },
     $body: {
       name: 'Serati Ma',
-      avatar:
-        'https://gw.alipayobjects.com/zos/rmsportal/dRFVcIqZOYPcSNrlJsqQ.png',
+      avatar: 'https://gw.alipayobjects.com/zos/rmsportal/dRFVcIqZOYPcSNrlJsqQ.png',
       userid: '00000001',
       notifyCount: 12
     }
   },
   // GET POST 可省略
-  'GET /back/users': [
-    {
+  'GET /back/users': [{
       key: '1',
       name: 'John Brown',
       age: 32,
@@ -69,17 +93,26 @@ const proxy = {
     $body: postRule
   },
   'POST /back/forms': (req, res) => {
-    res.send({ message: 'Ok' })
+    res.send({
+      message: 'Ok'
+    })
   },
   'GET /back/tags': mockjs.mock({
-    'list|100': [{ name: '@city', 'value|1-100': 150, 'type|0-2': 1 }]
+    'list|100': [{
+      name: '@city',
+      'value|1-100': 150,
+      'type|0-2': 1
+    }]
   }),
   'GET /back/fake_list': getFakeList,
   'GET /back/fake_chart_data': getFakeChartData,
   'GET /back/profile/basic': getProfileBasicData,
   'GET /back/profile/advanced': getProfileAdvancedData,
   'POST /back/systemManager/loginVerify': (req, res) => {
-    const { userAccount, password } = req.body
+    const {
+      userAccount,
+      password
+    } = req.body
     if (userAccount === 'admin' && password === '888888') {
       res.send({
         code: 0,
@@ -103,7 +136,10 @@ const proxy = {
     }
   },
   'POST /back/login/mobile': (req, res) => {
-    res.send({ status: 'ok', type: 'mobile' })
+    res.send({
+      status: 'ok',
+      type: 'mobile'
+    })
   },
   'POST /back/systemManager/updatePassword': (req, res) => {
     res.send({
@@ -115,15 +151,14 @@ const proxy = {
       msg: '请求成功'
     })
   },
-  'GET /bacc/systemManager/frozenManager': (req, res) => { },
+  'GET /bacc/systemManager/frozenManager': (req, res) => {},
   'GET /back/notices': getNotices,
   'POST /back/systemManager/queryAllManager': {
     code: 0,
     data: {
       msg: '查询成功！',
       code: 0,
-      managerList: [
-        {
+      managerList: [{
           addTime: '2017-11-01 17:08:31',
           frozen: 0,
           id: 1,
@@ -192,8 +227,7 @@ const proxy = {
   'GET /back/systemTemplate/query': {
     code: 0,
     data: {
-      templates: [
-        {
+      templates: [{
           addTime: '2017-11-30 15:07:16',
           id: 1,
           templateName: 'A',
@@ -240,8 +274,7 @@ const proxy = {
     data: {
       msg: '查询成功！',
       code: 0,
-      systemModuleList: [
-        {
+      systemModuleList: [{
           addTime: '2017-10-31 15:55:29',
           id: 1,
           moduleName: '个人拍照',
@@ -257,36 +290,38 @@ const proxy = {
           addTime: '2017-10-31 17:42:02',
           id: 3,
           moduleName: '云摄影',
-          moduleUrl:
-            'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
+          moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
         },
         {
           addTime: '2017-10-31 17:42:02',
           id: 4,
           moduleName: '专业展示',
-          moduleUrl:
-            'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
+          moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
         },
         {
           addTime: '2017-10-31 17:42:02',
           id: 5,
           moduleName: '3D打印',
-          moduleUrl:
-            'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
+          moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
         },
         {
           addTime: '2017-10-31 17:42:02',
           id: 6,
           moduleName: '大数据统计',
-          moduleUrl:
-            'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
+          moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
         }
       ]
     },
     msg: '请求成功'
   },
   'DELETE /back/systemModule/delete': moduleDelete,
+  // 设备管理
   'POST /back/systemModule/insert': moduleInsert,
+  'POST /back/systemDevice/add': deviceInsert,
+  'DELETE /back/systemDevice/delete': deviceDelete,
+  'GET /back/systemDevice/list': getFakeDevice,
+  'POST /back/systemDevice/allocateDeviceToManager': allocateDTM,
+  'POST /back/systemDevice/allocateActivityToDevice': allocateATD,
 }
 
 export default (noProxy ? {} : delay(proxy, 1000))

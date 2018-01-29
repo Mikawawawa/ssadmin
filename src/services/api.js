@@ -1,4 +1,6 @@
-import { stringify } from 'qs';
+import {
+  stringify
+} from 'qs';
 import request from '../utils/request';
 
 /* ---------------活动管理----------------------- */
@@ -102,15 +104,14 @@ export async function addSystemDevice(param) {
 
 export async function deleteSystemDevice(param) {
   return request('/back/systemDevice/delete', {
-    method: 'POST',
+    method: 'DELETE',
     body: param,
   });
 }
 
 export async function querySystemDevice(param) {
-  return request('/back/systemDevice/list', {
-    method: 'POST',
-    body: param,
+  return request(`/back/systemDevice/list?${stringify(param)}`, {
+    method: 'GET',
   });
 }
 
