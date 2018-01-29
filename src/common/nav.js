@@ -235,7 +235,7 @@ export const getNavData = app => [
           {
             name: '查看',
             path: 'list',
-            component: dynamicWrapper(app, ['list'], () =>
+            component: dynamicWrapper(app, ['device'], () =>
               import('../routes/Machines/MachineList')
             ),
           },
