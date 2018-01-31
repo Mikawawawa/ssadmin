@@ -11,6 +11,7 @@ import styles from './BasicList.less';
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
+const Option = Select.Option;
 
 const formItemLayout = {
   labelCol: {
@@ -24,19 +25,20 @@ const formItemLayout = {
   },
 };
 
-
-
 const { Search } = Input;
 
 @connect(state => ({
   device: state.device,
 }))
+@Form.create()
 export default class BasicList extends PureComponent {
   state = {
     modalVisible: false,
     ATDVisible: false,
     DTMVisible: false,
     addInputValue: '',
+    activityInputValue: '',
+    adminInputValue: '',
     count: 8,
     optionDevice: 0,
   }
@@ -86,6 +88,26 @@ export default class BasicList extends PureComponent {
     });
   }
 
+  // 处理机器ID的输入
+  handleIdInput = () => {
+    this.setState({
+      addInputValue: e,
+    });
+  }
+
+  handleMangerInput = (e) => {
+    this.setState({
+      adminInputValue: e,
+    });
+    message.success(JSON.stringify(e))
+  }
+
+  handleActivityInput = (e) => {
+    this.setState({
+      activityInputValue: e,
+    });
+  }
+
   handleAdd = () => {
     this.props.dispatch({
       type: 'device/add',
@@ -99,17 +121,19 @@ export default class BasicList extends PureComponent {
     });
   }
 
-  handleATD = () => {
-
+  handleATD = (e) => {
+    this.handleATDVisible()
+    message.success(JSON.stringify(this.state.activityInputValue))
   }
 
-  handleDTM = () => {
-
+  handleDTM = (e) => {
+    this.handleDTMVisible()
+    message.success(JSON.stringify(this.state.adminInputValue))
   }
 
   render() {
     const { device: { list, activities, mangers, loading } } = this.props;
-    const { modalVisible, ATDVisible, DTMVisible, opitionDevice, addInputValue, count } = this.state;
+    const { modalVisible, ATDVisible, DTMVisible, opitionDevice, addInputValue, activityInputValue, adminInputValue, count } = this.state;
 
     const Info = ({ title, value, bordered }) => (
       <div className={styles.headerInfo}>
@@ -246,7 +270,7 @@ export default class BasicList extends PureComponent {
             >
               <Input
                 placeholder="请输入机器编号"
-                onChange={this.handleAddInput}
+                onChange={this.handleIdInput}
                 value={addInputValue}
               />
             </FormItem>
@@ -259,11 +283,16 @@ export default class BasicList extends PureComponent {
           >
             <FormItem {...formItemLayout} label="活动选择">
               <Select
+                labelInValue
+                showSearch
+                style={{ width: 200 }}
                 mode="multiple"
                 placeholder="请选择活动"
-                defaultValue={['a10', 'c12']}
+                onChange={this.handleActivityInput}
               >
                 {activities}
+                {/* <Option value="jack">Jack (100)</Option>
+                <Option value="lucy">Lucy (101)</Option> */}
               </Select>
             </FormItem>
           </Modal>
@@ -276,16 +305,19 @@ export default class BasicList extends PureComponent {
           >
             <FormItem {...formItemLayout} label="管理员选择">
               <Select
+                labelInValue
+                showSearch
+                style={{ width: 200 }}
                 mode="multiple"
                 placeholder="请选择管理员"
-                defaultValue={['a10', 'c12']}
+                onChange={this.handleMangerInput}
               >
                 {mangers}
               </Select>
             </FormItem>
           </Modal>
-        </div>
-      </PageHeaderLayout>
+        </div >
+      </PageHeaderLayout >
     );
   }
 }

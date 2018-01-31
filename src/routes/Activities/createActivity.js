@@ -125,7 +125,7 @@ export default class BasicForms extends PureComponent {
                 ],
               })(
                 <TextArea style={{ minHeight: 16 }} placeholder="请输入您要分享的标题" rows={4} />
-              )}
+                )}
             </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={submitting}>
