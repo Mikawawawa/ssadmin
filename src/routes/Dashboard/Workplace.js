@@ -71,34 +71,29 @@ const members = [
 ];
 
 @connect(state => ({
-  project: state.project,
-  activities: state.activities,
-  chart: state.chart,
+  // project: state.project,
+  // activities: state.activities,
+  // chart: state.chart,
+  workplace: state.workplace,
+  user: state.user,
 }))
 export default class Workplace extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'project/fetchNotice',
+      type: 'workplace/fetchNotice',
     });
     dispatch({
-      type: 'activities/fetchList',
+      type: 'workplace/fetchList',
     });
     dispatch({
-      type: 'chart/fetch',
-    });
-  }
-
-  componentWillUnmount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'chart/clear',
+      type: 'workplace/fetch',
     });
   }
 
   renderActivities() {
     const {
-      activities: { list },
+      workplace: { list },
     } = this.props;
     return list.map((item) => {
       const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
@@ -131,18 +126,20 @@ export default class Workplace extends PureComponent {
 
   render() {
     const {
-      project: { loading: projectLoading, notice },
-      activities: { loading: activitiesLoading },
-      chart: { radarData },
+      workplace: { projectLoading, notice, activitiesLoading, radarData },
+      user: { currentUser },
+      // project: { loading: projectLoading, notice },
+      // activities: { loading: activitiesLoading },
+      // chart: { radarData },
     } = this.props;
 
     const pageHeaderContent = (
       <div className={styles.pageHeaderContent}>
         <div className={styles.avatar}>
-          <Avatar size="large" src="https://gw.alipayobjects.com/zos/rmsportal/lctvVCLfRpYCkYxAsiVQ.png" />
+          <Avatar size="large" src={currentUser.avatar} />
         </div>
         <div className={styles.content}>
-          <div className={styles.contentTitle}>早安，曲丽丽，祝你开心每一天！</div>
+          <div className={styles.contentTitle}>{currentUser.name}</div>
           <div>交互专家 | 蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED</div>
         </div>
       </div>
@@ -153,10 +150,6 @@ export default class Workplace extends PureComponent {
         <div>
           <p>项目数</p>
           <p>56</p>
-        </div>
-        <div>
-          <p>团队内排名</p>
-          <p>8<span> / 24</span></p>
         </div>
         <div>
           <p>项目访问</p>
@@ -171,7 +164,7 @@ export default class Workplace extends PureComponent {
         extraContent={pageHeaderExtra}
       >
         <Row gutter={24}>
-          <Col xl={16} lg={24} md={24} sm={24} xs={24}>
+          <Col xl={24} lg={24} md={24} sm={24} xs={24}>
             <Card
               className={styles.projectList}
               style={{ marginBottom: 24 }}
@@ -216,12 +209,12 @@ export default class Workplace extends PureComponent {
             >
               <List loading={activitiesLoading} size="large">
                 <div className={styles.activitiesList}>
-                  {this.renderActivities()}
+                  {/* {this.renderActivities()} */}
                 </div>
               </List>
             </Card>
           </Col>
-          <Col xl={8} lg={24} md={24} sm={24} xs={24}>
+          {/* <Col xl={8} lg={24} md={24} sm={24} xs={24}>
             <Card
               style={{ marginBottom: 24 }}
               title="快速开始 / 便捷导航"
@@ -229,7 +222,7 @@ export default class Workplace extends PureComponent {
               bodyStyle={{ padding: 0 }}
             >
               <EditableLinkGroup
-                onAdd={() => {}}
+                onAdd={() => { }}
                 links={links}
                 linkElement={Link}
               />
@@ -264,7 +257,7 @@ export default class Workplace extends PureComponent {
                 </Row>
               </div>
             </Card>
-          </Col>
+          </Col> */}
         </Row>
       </PageHeaderLayout>
     );

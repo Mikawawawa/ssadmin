@@ -26,7 +26,9 @@ export const getNavData = app => [
           {
             name: '一览',
             path: 'analysis',
-            component: dynamicWrapper(app, ['monitor'], () => import('../routes/Dashboard/Monitor')),
+            // component: dynamicWrapper(app, ['monitor'], () => import('../routes/Dashboard/Monitor')),
+            // component: dynamicWrapper(app, ['project', 'activities', 'chart'], () => import('../routes/Dashboard/Workplace')),
+            component: dynamicWrapper(app, ['workplace', 'user'], () => import('../routes/Dashboard/Workplace')),
           },
           // {
           //   name: '分析页',
@@ -62,7 +64,7 @@ export const getNavData = app => [
           {
             name: '活动设置',
             path: 'setting',
-            hideInMenu: true,
+            hide: true,
             component: dynamicWrapper(app, ['activities'], () =>
               import('../routes/Activities/Manage')
             ),

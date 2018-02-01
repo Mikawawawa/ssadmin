@@ -75,7 +75,7 @@ export default class Login extends Component {
                     prefix={<Icon type="user" className={styles.prefixIcon} />}
                     placeholder="admin"
                   />
-                )}
+                  )}
               </FormItem>
               <FormItem>
                 {getFieldDecorator('password', {
@@ -92,7 +92,7 @@ export default class Login extends Component {
                     type="password"
                     placeholder="888888"
                   />
-                )}
+                  )}
               </FormItem>
             </TabPane>
           </Tabs>
