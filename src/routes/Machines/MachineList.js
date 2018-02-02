@@ -27,6 +27,8 @@ const formItemLayout = {
 
 const { Search } = Input;
 
+const logo = 'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png'
+
 @connect(state => ({
   device: state.device,
 }))
@@ -95,7 +97,7 @@ export default class BasicList extends PureComponent {
     });
   }
 
-  handleMangerInput = (e) => {
+  handleManagerInput = (e) => {
     this.setState({
       adminInputValue: e,
     });
@@ -132,7 +134,7 @@ export default class BasicList extends PureComponent {
   }
 
   render() {
-    const { device: { list, activities, mangers, loading } } = this.props;
+    const { device: { list, activities, managers, loading } } = this.props;
     const { modalVisible, ATDVisible, DTMVisible, opitionDevice, addInputValue, activityInputValue, adminInputValue, count } = this.state;
 
     const Info = ({ title, value, bordered }) => (
@@ -170,29 +172,34 @@ export default class BasicList extends PureComponent {
       total: 50,
     };
 
-    const ListContent = ({ data: { owner, createdAt, percent, status } }) => (
+    const ListContent = ({ data: { activityId, addTime, belongManager } }) => (
       <div className={styles.listContent}>
         <div>
           <span>管理员</span>
-          {/* <p>{moment(createdAt).format('YYYY-MM-DD hh:mm')}</p> */}
-          <p>{owner}</p>
+          <p>{belongManager ? belongManager : '-'}</p>
         </div>
-        {/* <div>
-          <Progress percent={percent} status={status} strokeWidth={6} />
-        </div> */}
+        <div>
+          <span>创建时间</span>
+          <p>{addTime}</p>
+        </div>
+        <div>
+          <span>分配的活动</span>
+          <p>{activityId}</p>
+        </div>
+        <div></div>
       </div>
     );
 
-    const menu = (
-      <Menu>
-        <Menu.Item>
-          <a>编辑</a>
-        </Menu.Item>
-        <Menu.Item>
-          <a>删除</a>
-        </Menu.Item>
-      </Menu>
-    );
+    // const menu = (
+    //   <Menu>
+    //     <Menu.Item>
+    //       <a>编辑</a>
+    //     </Menu.Item>
+    //     <Menu.Item>
+    //       <a>删除</a>
+    //     </Menu.Item>
+    //   </Menu>
+    // );
 
     const MoreBtn = () => (
       <Dropdown overlay={menu}>
@@ -208,14 +215,14 @@ export default class BasicList extends PureComponent {
           <Card bordered={false}>
             <Row>
               <Col sm={8} xs={24}>
-                <Info title="当前机器数" value={`${count}台`} />
-              </Col>
-              {/* <Col sm={8} xs={24}>
-                <Info title="本周任务平均处理时间" value="32分钟" bordered />
+                <Info title="当前机器数" value={`${count}台`} bordered />
               </Col>
               <Col sm={8} xs={24}>
-                <Info title="本周完成任务数" value="24个任务" />
-              </Col> */}
+                <Info title="开机数量" value="5台" bordered />
+              </Col>
+              <Col sm={8} xs={24}>
+                <Info title="关闭数量" value="3台" />
+              </Col>
             </Row>
           </Card>
 
@@ -248,9 +255,9 @@ export default class BasicList extends PureComponent {
                     , <Button onClick={this.handleATDVisible}>分配活动</Button>]}
                 >
                   <List.Item.Meta
-                    avatar={<Avatar src={item.logo} shape="square" size="large" />}
-                    title={<a href={item.href}>{item.title}</a>}
-                    description={item.subDescription}
+                    avatar={<Avatar src={logo} shape="square" size="large" />}
+                    title={<div>{'MAC地址'}</div>}
+                    description={item.deviceId}
                   />
                   <ListContent data={item} />
                 </List.Item>
@@ -300,7 +307,7 @@ export default class BasicList extends PureComponent {
           <Modal
             title="分配管理员"
             visible={DTMVisible}
-            onOk={this.handleATD}
+            onOk={this.handleDTM}
             onCancel={() => this.handleDTMVisible()}
           >
             <FormItem {...formItemLayout} label="管理员选择">
@@ -310,9 +317,9 @@ export default class BasicList extends PureComponent {
                 style={{ width: 200 }}
                 mode="multiple"
                 placeholder="请选择管理员"
-                onChange={this.handleMangerInput}
+                onChange={this.handleManagerInput}
               >
-                {mangers}
+                {managers}
               </Select>
             </FormItem>
           </Modal>

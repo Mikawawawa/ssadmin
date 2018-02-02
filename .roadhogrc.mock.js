@@ -30,11 +30,12 @@ import {
   delay
 } from 'roadhog-api-doc'
 import {
+  queryModule,
   moduleDelete,
-  moduleInsert
+  moduleInsert,
 } from './mock/module'
 import {
-  getFakeDevice,
+  queryDevice,
   deviceDelete,
   deviceInsert,
   allocateATD,
@@ -153,42 +154,82 @@ const proxy = {
   },
   'GET /bacc/systemManager/frozenManager': (req, res) => {},
   'GET /back/notices': getNotices,
-  'POST /back/systemManager/queryAllManager': {
+  'GET /back/systemManager/queryAllManager': {
     code: 0,
     data: {
-      msg: '查询成功！',
+      msg: "查询成功！",
       code: 0,
       managerList: [{
-          addTime: '2017-11-01 17:08:31',
+          addTime: "2017-11-01 17:08:31",
           frozen: 0,
           id: 1,
           managerType: 0,
-          userAccount: 'zhangsan'
+          userAccount: "user1"
         },
         {
-          addTime: '2017-11-01 17:09:13',
+          addTime: "2017-11-01 17:09:13",
           frozen: 1,
           id: 2,
           managerType: 0,
-          userAccount: 'lishi'
+          userAccount: "user2"
         },
         {
-          addTime: '2017-11-01 17:09:13',
+          addTime: "2017-11-01 17:09:17",
           frozen: 1,
           id: 3,
           managerType: 0,
-          userAccount: 'wangwu'
+          userAccount: "user3"
         },
         {
-          addTime: '2017-11-01 17:09:13',
-          frozen: 1,
+          addTime: "2017-11-01 17:09:20",
+          frozen: 0,
           id: 4,
           managerType: 0,
-          userAccount: 'zhaoliu'
+          userAccount: "user4"
+        },
+        {
+          addTime: "2017-11-03 15:37:48",
+          frozen: 0,
+          id: 5,
+          lastLoginTime: "2018-01-29 17:07:12",
+          managerType: 0,
+          userAccount: "user555"
+        },
+        {
+          addTime: "2017-11-15 12:16:46",
+          frozen: 0,
+          id: 7,
+          managerType: 0,
+          userAccount: "user666"
+        },
+        {
+          addTime: "2017-11-30 14:13:19",
+          frozen: 0,
+          id: 11,
+          lastLoginTime: "2017-11-30 15:08:38",
+          managerType: 0,
+          remarks: "test",
+          userAccount: "user11"
+        },
+        {
+          addTime: "2018-01-27 10:09:27",
+          frozen: 0,
+          id: 14,
+          managerType: 0,
+          remarks: "娱乐公司",
+          userAccount: "zhangsan"
+        },
+        {
+          addTime: "2018-01-30 11:31:17",
+          frozen: 0,
+          id: 17,
+          managerType: 0,
+          remarks: "remarks",
+          userAccount: "normal"
         }
       ]
     },
-    msg: '请求成功'
+    msg: "请求成功"
   },
   'POST /back/systemManager/resetPassword': {
     code: 0,
@@ -223,7 +264,7 @@ const proxy = {
     },
     msg: '请求成功'
   },
-  'POST /back/systemActivity/queryActivity': getFakeActivities,
+  'GET /back/systemActivity/queryActivity': getFakeActivities,
   'GET /back/systemTemplate/query': {
     code: 0,
     data: {
@@ -269,57 +310,14 @@ const proxy = {
     },
     msg: '请求成功'
   },
-  'GET /back/systemModule/queryModule': {
-    code: 0,
-    data: {
-      msg: '查询成功！',
-      code: 0,
-      systemModuleList: [{
-          addTime: '2017-10-31 15:55:29',
-          id: 1,
-          moduleName: '个人拍照',
-          moduleUrl: 'AA'
-        },
-        {
-          addTime: '2017-10-31 17:38:49',
-          id: 2,
-          moduleName: '人脸识别',
-          moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljjmodule/10/bb'
-        },
-        {
-          addTime: '2017-10-31 17:42:02',
-          id: 3,
-          moduleName: '云摄影',
-          moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
-        },
-        {
-          addTime: '2017-10-31 17:42:02',
-          id: 4,
-          moduleName: '专业展示',
-          moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
-        },
-        {
-          addTime: '2017-10-31 17:42:02',
-          id: 5,
-          moduleName: '3D打印',
-          moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
-        },
-        {
-          addTime: '2017-10-31 17:42:02',
-          id: 6,
-          moduleName: '大数据统计',
-          moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
-        }
-      ]
-    },
-    msg: '请求成功'
-  },
+  // 模块管理
+  'GET /back/systemModule/queryModule': queryModule,
   'DELETE /back/systemModule/delete': moduleDelete,
-  // 设备管理
   'POST /back/systemModule/insert': moduleInsert,
+  // 设备管理
   'POST /back/systemDevice/add': deviceInsert,
   'DELETE /back/systemDevice/delete': deviceDelete,
-  'GET /back/systemDevice/list': getFakeDevice,
+  'GET /back/systemDevice/list': queryDevice,
   'POST /back/systemDevice/allocateDeviceToManager': allocateDTM,
   'POST /back/systemDevice/allocateActivityToDevice': allocateATD,
 }

@@ -1,7 +1,11 @@
-import { getUrlParams } from './utils';
+import {
+  getUrlParams
+} from './utils';
 import Mock from 'mockjs';
 
-const { Random } = Mock;
+const {
+  Random
+} = Mock;
 const titles = [
   'Alipay',
   'Angular',
@@ -65,29 +69,23 @@ export function fakeList(count) {
       updatedAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 2 * i),
       createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 2 * i),
       subDescription: desc[i % 5],
-      description:
-        '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
+      description: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
       activeUser: Math.ceil(Math.random() * 100000) + 100000,
       newUser: Math.ceil(Math.random() * 1000) + 1000,
       star: Math.ceil(Math.random() * 100) + 100,
       like: Math.ceil(Math.random() * 100) + 100,
       message: Math.ceil(Math.random() * 10) + 10,
-      content:
-        '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-      members: [
-        {
-          avatar:
-            'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+      content: '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
+      members: [{
+          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
           name: '曲丽丽',
         },
         {
-          avatar:
-            'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
+          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
           name: '王昭君',
         },
         {
-          avatar:
-            'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
+          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
           name: '董娜娜',
         },
       ],
@@ -116,8 +114,7 @@ export function getFakeList(req, res, u) {
   }
 }
 
-export const getNotice = [
-  {
+export const getNotice = [{
     id: 'xxx1',
     title: titles[0],
     logo: avatars[0],
@@ -179,8 +176,7 @@ export const getNotice = [
   },
 ];
 
-export const getActivities = [
-  {
+export const getActivities = [{
     id: 'trend-1',
     updatedAt: new Date(),
     user: {
@@ -280,65 +276,196 @@ export const getActivities = [
   },
 ];
 
-export function getFakeActivities(req, res, u) {
-  const activityVOList = [];
-  for (let i = 0; i < 60; i++) {
-    const moduleList = [
-      {
-        addTime: '2017-11-24 22:53:52',
-        description: '天天打豆豆',
-        icon: 'upload/module/12/2017112422535181293060585.jpg',
+// export function getFakeActivities(req, res, u) {
+//   const activityVOList = [];
+//   for (let i = 0; i < 60; i++) {
+//     const moduleList = [
+//       {
+//         addTime: '2017-11-24 22:53:52',
+//         description: '天天打豆豆',
+//         icon: 'upload/module/12/2017112422535181293060585.jpg',
+//         id: 1,
+//         moduleName: '个人拍照',
+//       },
+//       {
+//         addTime: '2017-12-01 19:50:19',
+//         description: '小小小',
+//         icon: 'upload/module/14/2017120119501948018943749.jpg',
+//         id: 2,
+//         moduleName: '人脸识别',
+//       },
+//       {
+//         addTime: '2017-11-24 22:53:52',
+//         description: '天天打豆豆',
+//         icon: 'upload/module/12/2017112422535181293060585.jpg',
+//         id: 3,
+//         moduleName: '云摄影',
+//       },
+//       {
+//         addTime: '2017-12-01 19:50:19',
+//         description: '小小小',
+//         icon: 'upload/module/14/2017120119501948018943749.jpg',
+//         id: 4,
+//         moduleName: '专业展示',
+//       },
+//     ];
+//     activityVOList.push({
+//       moduleList,
+//       activityName: '天天打豆豆13',
+//       addTime: Random.datetime(),
+//       belongManager: 111,
+//       userAccount: 'zhangsan',
+//       id: i,
+//       shareImage: 'diauid ',
+//       shareText: '吃饭睡觉打豆豆3',
+//       status: Math.floor(Math.random() + 0.5),
+//       templateId: Math.floor(Math.random() * 5),
+//       updateTime: Random.datetime(),
+//     });
+//   }
+//   const result = {
+//     code: 0,
+//     data: {
+//       msg: '查询成功！',
+//       activityVOList,
+//       code: 0,
+//     },
+//     msg: '请求成功',
+//   };
+//   if (res && res.json) {
+//     res.json(result);
+//   } else {
+//     return result;
+//   }
+// }
+export const getFakeActivities = {
+  code: 0,
+  data: {
+    msg: "查询成功！",
+    activityVOList: [{
+        activityName: "天天打豆豆",
+        addTime: "2017-11-06 13:46:15",
+        belongManager: 111,
         id: 1,
-        moduleName: '个人拍照',
+        moduleList: [],
+        shareImage: "upload/111/1/2017110619571313039823097.jpg",
+        shareText: "吃饭睡觉打豆豆3",
+        status: 0,
+        templateId: 222,
+        updateTime: "2017-11-06 13:46:15"
       },
       {
-        addTime: '2017-12-01 19:50:19',
-        description: '小小小',
-        icon: 'upload/module/14/2017120119501948018943749.jpg',
-        id: 2,
-        moduleName: '人脸识别',
+        activityName: "天天打豆豆13",
+        addTime: "2017-11-06 16:37:42",
+        belongManager: 111,
+        id: 14,
+        moduleList: [],
+        shareImage: "Z:\\idea\\workspace\\ljj\\target\\ljj\\",
+        shareText: "吃饭睡觉打豆豆3",
+        status: 0,
+        templateId: 222,
+        updateTime: "2017-11-06 16:37:42"
       },
       {
-        addTime: '2017-11-24 22:53:52',
-        description: '天天打豆豆',
-        icon: 'upload/module/12/2017112422535181293060585.jpg',
-        id: 3,
-        moduleName: '云摄影',
+        activityName: "天天打豆豆18",
+        addTime: "2017-11-06 19:56:42",
+        belongManager: 111,
+        id: 27,
+        moduleList: [],
+        shareImage: "Z:\\idea\\workspace\\ljj\\target\\ljj\\",
+        shareText: "吃饭睡觉打豆豆3",
+        status: 0,
+        templateId: 222,
+        updateTime: "2017-11-06 19:56:42"
       },
       {
-        addTime: '2017-12-01 19:50:19',
-        description: '小小小',
-        icon: 'upload/module/14/2017120119501948018943749.jpg',
-        id: 4,
-        moduleName: '专业展示',
+        activityName: "天天打豆豆19",
+        addTime: "2017-11-06 19:58:50",
+        belongManager: 8,
+        id: 28,
+        moduleList: [{
+          addTime: "2017-11-24 22:53:52",
+          description: "天天打豆豆",
+          icon: "upload/module/12/2017112422535181293060585.jpg",
+          id: 12,
+          moduleName: "打豆豆"
+        }],
+        qRCode: "upload/manager/6/28/1/code/2017112314261488144340396.jpg",
+        shareImage: "upload/8/28/2017112919461138086133169.jpg",
+        shareText: "吃饭睡觉打豆豆999",
+        status: 1,
+        templateId: 222,
+        updateTime: "2017-11-29 19:46:11",
+        userAccount: "admin"
       },
-    ];
-    activityVOList.push({
-      moduleList,
-      activityName: '天天打豆豆13',
-      addTime: Random.datetime(),
-      belongManager: 111,
-      userAccount: 'zhangsan',
-      id: i,
-      shareImage: 'diauid ',
-      shareText: '吃饭睡觉打豆豆3',
-      status: Math.floor(Math.random() + 0.5),
-      templateId: Math.floor(Math.random() * 5),
-      updateTime: Random.datetime(),
-    });
-  }
-  const result = {
-    code: 0,
-    data: {
-      msg: '查询成功！',
-      activityVOList,
-      code: 0,
-    },
-    msg: '请求成功',
-  };
-  if (res && res.json) {
-    res.json(result);
-  } else {
-    return result;
-  }
+      {
+        activityName: "天天打豆豆21",
+        addTime: "2017-11-06 21:41:46",
+        belongManager: 8,
+        id: 31,
+        moduleList: [],
+        shareImage: "upload/111/31/2017110621414599376263000.jpg",
+        shareText: "吃饭睡觉打豆豆3",
+        status: 0,
+        templateId: 222,
+        updateTime: "2017-11-06 21:41:46",
+        userAccount: "admin"
+      },
+      {
+        activityName: " 天天打豆豆555",
+        addTime: "2017-11-29 19:50:11",
+        belongManager: 8,
+        id: 32,
+        moduleList: [],
+        shareImage: "upload/manager/8/32/2017112919571780118205597.jpg",
+        shareText: "吃饭睡觉打豆豆777",
+        status: 0,
+        templateId: 333,
+        updateTime: "2017-11-29 19:57:18",
+        userAccount: "admin"
+      },
+      {
+        activityName: "大大大",
+        addTime: "2017-11-30 13:59:57",
+        belongManager: 8,
+        id: 33,
+        moduleList: [],
+        shareImage: "upload/manager/8/33/2017113013595678613702519.jpg",
+        shareText: "小小小",
+        status: 0,
+        templateId: 999,
+        updateTime: "2017-11-30 13:59:57",
+        userAccount: "admin"
+      },
+      {
+        activityName: "下树1",
+        addTime: "2017-11-30 14:22:27",
+        belongManager: 8,
+        id: 34,
+        moduleList: [{
+            addTime: "2017-11-24 22:53:52",
+            description: "天天打豆豆",
+            icon: "upload/module/12/2017112422535181293060585.jpg",
+            id: 12,
+            moduleName: "打豆豆"
+          },
+          {
+            addTime: "2017-12-01 19:50:19",
+            description: "小小小",
+            icon: "upload/module/14/2017120119501948018943749.jpg",
+            id: 14,
+            moduleName: "大大大"
+          }
+        ],
+        shareImage: "upload/manager/8/34/2017113016070409340965778.jpg",
+        shareText: "树下1",
+        status: 0,
+        templateId: 88888,
+        updateTime: "2017-11-30 14:22:27",
+        userAccount: "admin"
+      }
+    ],
+    code: 0
+  },
+  msg: "请求成功"
 }

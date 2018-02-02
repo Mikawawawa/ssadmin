@@ -1,17 +1,9 @@
-import { getUrlParams } from './utils';
+import {
+  getUrlParams
+} from './utils';
 import Mock from 'mockjs'
 
 const Random = Mock.Random
-const titles = [
-  'Alipay',
-  'Angular',
-  'Ant Design',
-  'Ant Design Pro',
-  'Bootstrap',
-  'React',
-  'Vue',
-  'Webpack'
-]
 const avatars = [
   'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png', // Alipay
   'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png', // Angular
@@ -28,99 +20,108 @@ const covers = [
   'https://gw.alipayobjects.com/zos/rmsportal/uVZonEtjWwmUZPBQfycs.png',
   'https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png'
 ]
-const desc = [
-  '那是一种内在的东西， 他们到达不了，也无法触及的',
-  '希望是一个好东西，也许是最好的，好东西是不会消亡的',
-  '生命就像一盒巧克力，结果往往出人意料',
-  '城镇中有那么多的酒馆，她却偏偏走进了我的酒馆',
-  '那时候我只会想自己想要什么，从不想自己拥有什么'
-]
 
-const user = [
-  '付小小',
-  '曲丽丽',
-  '林东东',
-  '周星星',
-  '吴加好',
-  '朱偏右',
-  '鱼酱',
-  '乐哥',
-  '谭小仪',
-  '仲尼'
-]
-
-export function fakeList(count) {
-  const list = []
-  for (let i = 0; i < count; i += 1) {
-    list.push({
-      id: `fake-list-${i}`,
-      owner: user[i % 10],
-      title: titles[i % 8],
-      avatar: avatars[i % 8],
-      cover: parseInt(i / 4, 10) % 2 === 0 ? covers[i % 4] : covers[3 - i % 4],
-      status: ['active', 'exception', 'normal'][i % 3],
-      percent: Math.ceil(Math.random() * 50) + 50,
-      logo: avatars[i % 8],
-      href: 'https://ant.design',
-      updatedAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 2 * i),
-      createdAt: new Date(new Date().getTime() - 1000 * 60 * 60 * 2 * i),
-      subDescription: desc[i % 5],
-      description:
-        '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
-      activeUser: Math.ceil(Math.random() * 100000) + 100000,
-      newUser: Math.ceil(Math.random() * 1000) + 1000,
-      star: Math.ceil(Math.random() * 100) + 100,
-      like: Math.ceil(Math.random() * 100) + 100,
-      message: Math.ceil(Math.random() * 10) + 10,
-      content:
-        '段落示意：蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 ant.design，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
-      members: [
-        {
-          avatar:
-            'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
-          name: '曲丽丽'
-        },
-        {
-          avatar:
-            'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
-          name: '王昭君'
-        },
-        {
-          avatar:
-            'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
-          name: '董娜娜'
-        }
-      ]
-    })
-  }
-  return list
-}
-
-export function getFakeList(req, res, u) {
-  let url = u
-  if (!url || Object.prototype.toString.call(url) !== '[object String]') {
-    url = req.url // eslint-disable-line
-  }
-
-  const params = getUrlParams(url)
-
-  const count = params.count * 1 || 20
-
-  const result = fakeList(count)
-
-  if (res && res.json) {
-    res.json(result)
-  } else {
-    return result
-  }
+export const queryModule = {
+  code: 0,
+  data: {
+    msg: '查询成功！',
+    code: 0,
+    systemModuleList: [{
+        addTime: '2017-11-24 22:53:52',
+        description: '天天打豆豆',
+        icon: avatars[0],
+        id: 12,
+        moduleName: '打豆豆',
+      },
+      {
+        addTime: '2017-12-01 19:50:19',
+        description: '小小小',
+        icon: avatars[1],
+        id: 14,
+        moduleName: '大大大',
+      },
+      {
+        addTime: '2017-12-01 19:50:19',
+        description: '小小小',
+        icon: avatars[2],
+        id: 14,
+        moduleName: '大大大',
+      },
+      {
+        addTime: '2017-12-01 19:50:19',
+        description: '小小小',
+        icon: avatars[3],
+        id: 14,
+        moduleName: '大大大',
+      }
+    ]
+  },
+  msg: '请求成功'
 }
 
 export const moduleDelete = {
   code: 0,
-  msg: "DELETE"
+  msg: '请求成功',
 };
 
 export const moduleInsert = {
   code: 0,
-  msg: "INSERT"
+  data: {
+    msg: "创建模块成功！",
+    code: 0,
+    systemModule: {
+      addTime: "2018-02-02 13:35:08",
+      description: "testmodule",
+      icon: "upload/module/23/2018020213350827512061935.png",
+      id: 23,
+      moduleName: "test"
+    }
+  },
+  msg: "请求成功"
 }
+
+// {
+//   code: 0,
+//   data: {
+//     msg: '查询成功！',
+//     code: 0,
+//     systemModuleList: [{
+//         addTime: '2017-10-31 15:55:29',
+//         id: 1,
+//         moduleName: '个人拍照',
+//         moduleUrl: 'AA'
+//       },
+//       {
+//         addTime: '2017-10-31 17:38:49',
+//         id: 2,
+//         moduleName: '人脸识别',
+//         moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljjmodule/10/bb'
+//       },
+//       {
+//         addTime: '2017-10-31 17:42:02',
+//         id: 3,
+//         moduleName: '云摄影',
+//         moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
+//       },
+//       {
+//         addTime: '2017-10-31 17:42:02',
+//         id: 4,
+//         moduleName: '专业展示',
+//         moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
+//       },
+//       {
+//         addTime: '2017-10-31 17:42:02',
+//         id: 5,
+//         moduleName: '3D打印',
+//         moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
+//       },
+//       {
+//         addTime: '2017-10-31 17:42:02',
+//         id: 6,
+//         moduleName: '大数据统计',
+//         moduleUrl: 'E:\\IntelijIdea_workspace\\ljj\\target\\ljj\\module\\11\\bb'
+//       }
+//     ]
+//   },
+//   msg: '请求成功'
+// }

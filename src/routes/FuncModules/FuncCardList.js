@@ -15,6 +15,7 @@ export default class CardList extends PureComponent {
   state = {
     modalVisible: false,
     addInputValue: '',
+    describeValue: '',
   }
 
   componentDidMount() {
@@ -38,11 +39,19 @@ export default class CardList extends PureComponent {
     });
   }
 
+  handleDescribeInput = (e) => {
+    this.setState({
+      describeValue: e.target.value,
+    });
+  }
+
+
   handleAdd = () => {
     this.props.dispatch({
       type: 'modules/add',
       payload: {
-        description: this.state.addInputValue,
+        moduleName: this.state.addInputValue,
+        description: this.state.describeValue,
       },
     });
     message.success('添加成功');
@@ -56,7 +65,7 @@ export default class CardList extends PureComponent {
     this.props.dispatch({
       type: 'modules/delete',
       payload: {
-        moduleid: id,
+        moduleId: id,
       },
     });
     this.props.dispatch({
@@ -65,12 +74,12 @@ export default class CardList extends PureComponent {
         count: 8,
       },
     });
-    message.success('删除成功');
+    message.success(`删除模块${id}成功`);
   }
 
   render() {
     const { modules: { list, loading } } = this.props;
-    const { modalVisible, addInputValue } = this.state;
+    const { modalVisible, addInputValue, describeValue } = this.state;
 
     const content = (
       <div className={styles.pageHeaderContent}>
@@ -101,9 +110,9 @@ export default class CardList extends PureComponent {
             dataSource={['', ...list]}
             renderItem={item => (item ? (
               <List.Item key={item.id}>
-                <Card hoverable className={styles.card} title={<a href="#">{item.title}</a>} extra={<Button onClick={() => this.handleDelete(item.id)} > 删除</Button>}>
+                <Card hoverable className={styles.card} title={<a href="#">{item.moduleName}</a>} extra={<Button onClick={() => this.handleDelete(item.id)} > 删除</Button>}>
                   <Card.Meta
-                    avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
+                    avatar={<img alt="" className={styles.cardAvatar} src={item.icon} />}
                     description={(
                       <Ellipsis className={styles.item} lines={4}>{item.description}</Ellipsis>
                     )}
@@ -143,6 +152,8 @@ export default class CardList extends PureComponent {
             <FormItem
               labelCol={{ span: 5 }}
               wrapperCol={{ span: 15 }}
+              onChange={this.handleDescribeInput}
+              value={describeValue}
               label="模块描述"
             >
               <Input placeholder="请输入模块描述，不超过四个字" />
