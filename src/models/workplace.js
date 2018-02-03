@@ -1,5 +1,6 @@
 import {
   queryProjectNotice,
+  querySystemDevice,
   queryActivities,
   queryTemplate,
   queryModule,
@@ -13,9 +14,9 @@ export default {
   namespace: 'workplace',
 
   state: {
-    list: [],
     radarData: [],
     notice: [],
+    list: [],
     projectLoading: true,
     activitiesLoading: true,
   },
@@ -23,9 +24,10 @@ export default {
   effects: {
     *fetch(_, { call, put }) {
       const response = yield call(fakeChartData);
+      const data = response.radarData;
       yield put({
         type: 'save',
-        payload: response,
+        payload: data,
       });
     },
     * fetchList(_, { call, put }) {
@@ -35,15 +37,19 @@ export default {
       });
 
       const response = yield call(queryActivities);
-      const { activityVOList } = response.data;
+      const list = response.data.activityVOList;
 
       yield put({
         type: 'saveList',
-        payload: activityVOList,
+        payload: list,
       });
 
       yield put({
         type: 'changeLoading',
+        payload: false,
+      });
+      yield put({
+        type: 'changeActivityLoading',
         payload: false,
       });
     },
@@ -52,7 +58,8 @@ export default {
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryProjectNotice);
+      let response = yield call(querySystemDevice);
+      response = response.data ? response.data.deviceList : [];
       yield put({
         type: 'saveNotice',
         // payload: Array.isArray(response) ? response : [],
@@ -62,6 +69,10 @@ export default {
         type: 'changeLoading',
         payload: false,
       });
+      yield put({
+        type: 'changeProjectLoading',
+        payload: false,
+      });
     },
   },
 
@@ -69,7 +80,7 @@ export default {
     saveList(state, action) {
       return {
         ...state,
-        activityVOList: action.payload,
+        list: action.payload,
       };
     },
     saveNotice(state, action) {
@@ -78,10 +89,22 @@ export default {
         notice: action.payload,
       };
     },
-    save(state, { payload }) {
+    save(state, action) {
       return {
         ...state,
-        ...payload,
+        radarData: action.payload,
+      };
+    },
+    changeProjectLoading(state, action) {
+      return {
+        ...state,
+        projectLoading: action.payload,
+      };
+    },
+    changeActivityLoading(state, action) {
+      return {
+        ...state,
+        activitiesLoading: action.payload,
       };
     },
     changeLoading(state, action) {
@@ -92,6 +115,7 @@ export default {
     },
     clear() {
       return {
+        ...state,
         radarData: [],
       };
     },

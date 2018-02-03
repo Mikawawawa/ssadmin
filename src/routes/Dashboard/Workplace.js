@@ -70,6 +70,7 @@ const members = [
   },
 ];
 
+const logo = 'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png' // Webpack
 @connect(state => ({
   // project: state.project,
   // activities: state.activities,
@@ -96,26 +97,26 @@ export default class Workplace extends PureComponent {
       workplace: { list },
     } = this.props;
     return list.map((item) => {
-      const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
-        if (item[key]) {
-          return <a href={item[key].link} key={item[key].name}>{item[key].name}</a>;
-        }
-        return key;
-      });
+      // const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
+      //   if (item[key]) {
+      //     return <a href={item[key].link} key={item[key].name}>{item[key].name}</a>;
+      //   }
+      //   return key;
+      // });
       return (
         <List.Item key={item.id}>
           <List.Item.Meta
-            avatar={<Avatar src={item.user.avatar} />}
+            avatar={<Avatar src={logo} />}
             title={
               <span>
-                <a className={styles.username}>{item.user.name}</a>
+                <a className={styles.username}>{item.activityName}</a>
                 &nbsp;
-                <span className={styles.event}>{events}</span>
+                {/* <span className={styles.event}>{events}</span> */}
               </span>
             }
             description={
-              <span className={styles.datetime} title={item.updatedAt}>
-                {moment(item.updatedAt).fromNow()}
+              <span className={styles.datetime} title={`添加时间`}>
+                {moment(item.addTime).fromNow()}
               </span>
             }
           />
@@ -126,11 +127,8 @@ export default class Workplace extends PureComponent {
 
   render() {
     const {
-      workplace: { projectLoading, notice, activitiesLoading, radarData },
+      workplace: { projectLoading, notice, activitiesLoading, radarData, list },
       user: { currentUser },
-      // project: { loading: projectLoading, notice },
-      // activities: { loading: activitiesLoading },
-      // chart: { radarData },
     } = this.props;
 
     const pageHeaderContent = (
@@ -168,9 +166,9 @@ export default class Workplace extends PureComponent {
             <Card
               className={styles.projectList}
               style={{ marginBottom: 24 }}
-              title="进行中的项目"
+              title="列表中的机器"
               bordered={false}
-              extra={<Link to="/">全部项目</Link>}
+              extra={<Link to="/machine/list">全部机器</Link>}
               loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >
@@ -181,17 +179,17 @@ export default class Workplace extends PureComponent {
                       <Card.Meta
                         title={(
                           <div className={styles.cardTitle}>
-                            <Avatar size="small" src={item.logo} />
-                            <Link to={item.href}>{item.title}</Link>
+                            <Avatar size="small" src={logo} />
+                            <Link to={'#'}>{item.deviceId}</Link>
                           </div>
                         )}
-                        description={item.description}
+                        description={`更新时间：${item.updateTime}`}
                       />
                       <div className={styles.projectItemContent}>
-                        <Link to={item.memberLink}>{item.member || ''}</Link>
+                        <Link to={'#'}>{item.member || ''}</Link>
                         {item.updatedAt && (
-                          <span className={styles.datetime} title={item.updatedAt}>
-                            {moment(item.updatedAt).fromNow()}
+                          <span className={styles.datetime} title={item.addTime}>
+                            {moment(item.updateTime).fromNow()}
                           </span>
                         )}
                       </div>
@@ -209,7 +207,7 @@ export default class Workplace extends PureComponent {
             >
               <List loading={activitiesLoading} size="large">
                 <div className={styles.activitiesList}>
-                  {/* {this.renderActivities()} */}
+                  {this.renderActivities()}
                 </div>
               </List>
             </Card>

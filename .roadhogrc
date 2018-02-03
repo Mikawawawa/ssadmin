@@ -6,6 +6,12 @@
     "transform-class-properties",
     ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true }]
   ],
+//  "proxy": {
+//    "/": {
+//      "target": "http://101.132.147.167:8080/ljj/",
+//      "changeOrigin": true
+//    }
+//  },
   "env": {
     "development": {
       "extraBabelPlugins": [
