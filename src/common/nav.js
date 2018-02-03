@@ -34,7 +34,7 @@ export const getNavData = app => [
           //   name: '分析页',
           //   path: 'analysis',
           //   component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Analysis')),
-          // },         
+          // },
           // {
           //   name: '工作台',
           //   path: 'workplace',
@@ -203,7 +203,7 @@ export const getNavData = app => [
       //   ],
       // },
       {
-        name: '异常',
+        // name: '异常',
         path: 'exception',
         icon: 'warning',
         children: [

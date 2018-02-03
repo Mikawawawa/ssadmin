@@ -64,23 +64,23 @@ const proxy = {
   },
   // GET POST 可省略
   'GET /back/users': [{
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    }
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park'
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 1 Lake Park'
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park'
+  }
   ],
   'GET /back/project/notice': getNotice,
   'GET /back/rule': getRule,
@@ -152,7 +152,7 @@ const proxy = {
       msg: '请求成功'
     })
   },
-  'GET /bacc/systemManager/frozenManager': (req, res) => {},
+  'GET /bacc/systemManager/frozenManager': (req, res) => { },
   'GET /back/notices': getNotices,
   'GET /back/systemManager/queryAllManager': {
     code: 0,
@@ -160,73 +160,73 @@ const proxy = {
       msg: "查询成功！",
       code: 0,
       managerList: [{
-          addTime: "2017-11-01 17:08:31",
-          frozen: 0,
-          id: 1,
-          managerType: 0,
-          userAccount: "user1"
-        },
-        {
-          addTime: "2017-11-01 17:09:13",
-          frozen: 1,
-          id: 2,
-          managerType: 0,
-          userAccount: "user2"
-        },
-        {
-          addTime: "2017-11-01 17:09:17",
-          frozen: 1,
-          id: 3,
-          managerType: 0,
-          userAccount: "user3"
-        },
-        {
-          addTime: "2017-11-01 17:09:20",
-          frozen: 0,
-          id: 4,
-          managerType: 0,
-          userAccount: "user4"
-        },
-        {
-          addTime: "2017-11-03 15:37:48",
-          frozen: 0,
-          id: 5,
-          lastLoginTime: "2018-01-29 17:07:12",
-          managerType: 0,
-          userAccount: "user555"
-        },
-        {
-          addTime: "2017-11-15 12:16:46",
-          frozen: 0,
-          id: 7,
-          managerType: 0,
-          userAccount: "user666"
-        },
-        {
-          addTime: "2017-11-30 14:13:19",
-          frozen: 0,
-          id: 11,
-          lastLoginTime: "2017-11-30 15:08:38",
-          managerType: 0,
-          remarks: "test",
-          userAccount: "user11"
-        },
-        {
-          addTime: "2018-01-27 10:09:27",
-          frozen: 0,
-          id: 14,
-          managerType: 0,
-          remarks: "娱乐公司",
-          userAccount: "zhangsan"
-        },
-        {
-          addTime: "2018-01-30 11:31:17",
-          frozen: 0,
-          id: 17,
-          managerType: 0,
-          remarks: "remarks",
-          userAccount: "normal"
-        }
+        addTime: "2017-11-01 17:08:31",
+        frozen: 0,
+        id: 1,
+        managerType: 0,
+        userAccount: "user1"
+      },
+      {
+        addTime: "2017-11-01 17:09:13",
+        frozen: 1,
+        id: 2,
+        managerType: 0,
+        userAccount: "user2"
+      },
+      {
+        addTime: "2017-11-01 17:09:17",
+        frozen: 1,
+        id: 3,
+        managerType: 0,
+        userAccount: "user3"
+      },
+      {
+        addTime: "2017-11-01 17:09:20",
+        frozen: 0,
+        id: 4,
+        managerType: 0,
+        userAccount: "user4"
+      },
+      {
+        addTime: "2017-11-03 15:37:48",
+        frozen: 0,
+        id: 5,
+        lastLoginTime: "2018-01-29 17:07:12",
+        managerType: 0,
+        userAccount: "user555"
+      },
+      {
+        addTime: "2017-11-15 12:16:46",
+        frozen: 0,
+        id: 7,
+        managerType: 0,
+        userAccount: "user666"
+      },
+      {
+        addTime: "2017-11-30 14:13:19",
+        frozen: 0,
+        id: 11,
+        lastLoginTime: "2017-11-30 15:08:38",
+        managerType: 0,
+        remarks: "test",
+        userAccount: "user11"
+      },
+      {
+        addTime: "2018-01-27 10:09:27",
+        frozen: 0,
+        id: 14,
+        managerType: 0,
+        remarks: "娱乐公司",
+        userAccount: "zhangsan"
+      },
+      {
+        addTime: "2018-01-30 11:31:17",
+        frozen: 0,
+        id: 17,
+        managerType: 0,
+        remarks: "remarks",
+        userAccount: "normal"
+      }
       ]
     },
     msg: "请求成功"
@@ -269,29 +269,29 @@ const proxy = {
     code: 0,
     data: {
       templates: [{
-          addTime: '2017-11-30 15:07:16',
-          id: 1,
-          templateName: 'A',
-          templateUrl: '2017113015071615860988403.jpg'
-        },
-        {
-          addTime: '2017-11-30 15:09:05',
-          id: 2,
-          templateName: 'B',
-          templateUrl: '2017113015090468619907247.jpg'
-        },
-        {
-          addTime: '2017-11-30 15:07:16',
-          id: 3,
-          templateName: 'C',
-          templateUrl: '2017113015071615860988403.jpg'
-        },
-        {
-          addTime: '2017-11-30 15:09:05',
-          id: 4,
-          templateName: 'D',
-          templateUrl: '2017113015090468619907247.jpg'
-        }
+        addTime: '2017-11-30 15:07:16',
+        id: 1,
+        templateName: 'A',
+        templateUrl: '2017113015071615860988403.jpg'
+      },
+      {
+        addTime: '2017-11-30 15:09:05',
+        id: 2,
+        templateName: 'B',
+        templateUrl: '2017113015090468619907247.jpg'
+      },
+      {
+        addTime: '2017-11-30 15:07:16',
+        id: 3,
+        templateName: 'C',
+        templateUrl: '2017113015071615860988403.jpg'
+      },
+      {
+        addTime: '2017-11-30 15:09:05',
+        id: 4,
+        templateName: 'D',
+        templateUrl: '2017113015090468619907247.jpg'
+      }
       ]
     },
     msg: '请求成功'
@@ -323,3 +323,4 @@ const proxy = {
 }
 
 export default (noProxy ? {} : delay(proxy, 1000))
+
