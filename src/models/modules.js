@@ -1,4 +1,4 @@
-import { queryFakeList, deleteModule, insertModule } from '../services/api';
+import { queryModule, deleteModule, insertModule } from '../services/api';
 
 export default {
   namespace: 'modules',
@@ -14,10 +14,10 @@ export default {
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryFakeList, payload);
+      const response = yield call(queryModule, payload);
       yield put({
-        type: 'appendList',
-        payload: Array.isArray(response) ? response : [],
+        type: 'refreshList',
+        payload: response.data.systemModuleList,
       });
       yield put({
         type: 'changeLoading',
@@ -33,13 +33,13 @@ export default {
   },
 
   reducers: {
-    appendList(state, action) {
+    refreshList(state, action) {
       return {
         ...state,
         list: action.payload,
       };
     },
-    refreshList(state, action) {
+    appendList(state, action) {
       return {
         ...state,
         list: state.list.concat(aciton.payload),

@@ -5,10 +5,7 @@ import request from '../utils/request';
 
 /* ---------------活动管理----------------------- */
 export async function queryActivities(body) {
-  return request('/back/systemActivity/queryActivity', {
-    method: 'POST',
-    body,
-  });
+  return request('/back/systemActivity/queryActivity');
 }
 
 export async function deleteActivity(body) {
@@ -53,10 +50,7 @@ export async function frozenManager(body) {
 }
 
 export async function queryAllManager(body) {
-  return request('/back/systemManager/queryAllManager', {
-    method: 'POST',
-    body,
-  });
+  return request('/back/systemManager/queryAllManager');
 }
 
 export async function thawManager(body) {

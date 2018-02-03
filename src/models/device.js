@@ -1,13 +1,21 @@
-import { queryActivities, queryFakeList, addSystemDevice, deleteSystemDevice, querySystemDevice, allocateActivityToDevice, allocateDeviceToManager, queryAllManager } from '../services/api';
-import activities from './activities';
-
+import {
+  addSystemDevice,
+  deleteSystemDevice,
+  querySystemDevice,
+  allocateActivityToDevice,
+  allocateDeviceToManager,
+  queryAllManager,
+  queryActivities
+} from '../services/api';
+import { Select } from 'antd'
+const Option = Select.Option
 export default {
   namespace: 'device',
 
   state: {
     list: [],
     activities: [],
-    mangers: [],
+    managers: [],
     loading: false,
   },
 
@@ -17,10 +25,10 @@ export default {
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryFakeList, payload);
+      const response = yield call(querySystemDevice, payload);
       yield put({
-        type: 'appendList',
-        payload: Array.isArray(response) ? response : [],
+        type: 'refreshList',
+        payload: response.data.deviceList,
       });
       yield put({
         type: 'changeLoading',
@@ -28,10 +36,34 @@ export default {
       });
     },
     *delete({ payload }, { put, call }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
       yield call(deleteSystemDevice, payload);
+      yield put({
+        type: 'refreshList',
+        payload: response.data.deviceList,
+      });
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
     },
     *add({ payload }, { call }) {
+      yield put({
+        type: 'changeLoading',
+        payload: true,
+      });
       yield call(addSystemDevice, payload);
+      yield put({
+        type: 'refreshList',
+        payload: response.data.deviceList,
+      });
+      yield put({
+        type: 'changeLoading',
+        payload: false,
+      });
     },
     *allocateATD({ payload }, { call }) {
       yield call(allocateActivityToDevice, payload);
@@ -44,10 +76,21 @@ export default {
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryActivities, payload);
+      let response = yield call(queryActivities, payload);
+      response = response.data.activityVOList
+      if (response != []) {
+        for (let i = 0; i < response.length; i++) {
+          response[i] = <Option key={response[i].id}>{response[i].activityName}</Option>;
+        }
+      }
+      else {
+        for (let i = 10; i < 16; i++) {
+          response.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+        }
+      }
       yield put({
         type: 'appendActivity',
-        payload: Array.isArray(response) ? response : [],
+        payload: response,
       });
       yield put({
         type: 'changeLoading',
@@ -59,10 +102,20 @@ export default {
         type: 'changeLoading',
         payload: true,
       });
-      const response = yield call(queryAllManager, payload);
+      let response = yield call(queryAllManager, payload);
+      response = response.data.managerList
+      if (response != []) {
+        for (let i = 0; i < response.length; i++) {
+          response[i] = <Option key={response[i].id}>{response[i].userAccount}</Option>;
+        }
+      } else {
+        for (let i = 10; i < 16; i++) {
+          response.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+        }
+      }
       yield put({
         type: 'appendAdmin',
-        payload: Array.isArray(response) ? response : [],
+        payload: response,
       });
       yield put({
         type: 'changeLoading',
@@ -87,13 +140,15 @@ export default {
     appendActivity(state, action) {
       return {
         ...state,
-        activities: state.activities.concat(action.payload),
+        activities: action.payload,
+        // activities: state.activities.concat(action.payload),
       };
     },
     appendAdmin(state, action) {
       return {
         ...state,
-        mangers: state.mangers.concat(action.payload),
+        managers: action.payload,
+        // mangers: state.mangers.concat(action.payload),
       };
     },
     changeLoading(state, action) {

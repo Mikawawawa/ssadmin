@@ -18,28 +18,30 @@ export const getNavData = app => [
     name: '首页', // for breadcrumb
     path: '/',
     children: [
-      // {
-      //   name: 'Dashboard',
-      //   icon: 'dashboard',
-      //   path: 'dashboard',
-      //   children: [
-      //     {
-      //       name: '分析页',
-      //       path: 'analysis',
-      //       component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Analysis')),
-      //     },
-      //     {
-      //       name: '监控页',
-      //       path: 'monitor',
-      //       component: dynamicWrapper(app, ['monitor'], () => import('../routes/Dashboard/Monitor')),
-      //     },
-      //     {
-      //       name: '工作台',
-      //       path: 'workplace',
-      //       component: dynamicWrapper(app, ['project', 'activities', 'chart'], () => import('../routes/Dashboard/Workplace')),
-      //     },
-      //   ],
-      // },
+      {
+        name: 'Dashboard',
+        icon: 'dashboard',
+        path: 'dashboard',
+        children: [
+          {
+            name: '一览',
+            path: 'analysis',
+            // component: dynamicWrapper(app, ['monitor'], () => import('../routes/Dashboard/Monitor')),
+            // component: dynamicWrapper(app, ['project', 'activities', 'chart'], () => import('../routes/Dashboard/Workplace')),
+            component: dynamicWrapper(app, ['workplace', 'user'], () => import('../routes/Dashboard/Workplace')),
+          },
+          // {
+          //   name: '分析页',
+          //   path: 'analysis',
+          //   component: dynamicWrapper(app, ['chart'], () => import('../routes/Dashboard/Analysis')),
+          // },         
+          // {
+          //   name: '工作台',
+          //   path: 'workplace',
+          //   component: dynamicWrapper(app, ['project', 'activities', 'chart'], () => import('../routes/Dashboard/Workplace')),
+          // },
+        ],
+      },
       {
         name: '活动管理',
         path: 'activities',
@@ -62,6 +64,7 @@ export const getNavData = app => [
           {
             name: '活动设置',
             path: 'setting',
+            hide: true,
             component: dynamicWrapper(app, ['activities'], () =>
               import('../routes/Activities/Manage')
             ),
